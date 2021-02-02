@@ -1,4 +1,7 @@
 <h1>Nova Promoção</h1>
+<% if @promotion.errors.any? %>
+    <p>Não foi possível criar a promoção</p>
+<% end %>
 
 <%= form_with model: Promotion.new do |f| %>
     <%= f.label :name, 'Nome' %>

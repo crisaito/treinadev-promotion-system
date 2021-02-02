@@ -8,6 +8,7 @@ class PromotionsController < ApplicationController
     end
 
     def new
+        @promotion = Promotion.new
 
     end
 
@@ -25,7 +26,10 @@ class PromotionsController < ApplicationController
         #@promotion.discount_rate = params[:promotion][:discount_rate]
         #@promotion.coupon_quantity = params[:promotion][:coupon_quantity]
         #@promotion.expiration_date = params[:promotion][:expiration_date]
-        @promotion.save
-        redirect_to promotion_path(id: @promotion.id)
+        if @promotion.save
+            redirect_to @promotion
+        else
+            render 'new'
+        end
     end
 end
