@@ -1,3 +1,5 @@
+<%= flash[:notice] %>
+
 <h1><%= @promotion.name %></h1>
 <dl>
     <dt>Descrição</dt>
@@ -13,3 +15,8 @@
 </dl>
 
 <%= link_to 'Voltar', promotions_path %>
+<%= link_to 'Gerar cupons', generate_coupons_promotion_path(@promotion), method: :post %>
+
+<% @promotion.coupons.each do |coupon| %>
+    <%= coupon.code %>
+<% end %>
