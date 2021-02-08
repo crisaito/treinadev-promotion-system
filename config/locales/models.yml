@@ -8,6 +8,9 @@ pt-BR:
         one: Cupom
         other: Cupons
     attributes:
+      user:
+        email: E-mail
+        password: Senha
       promotion:
         name: "Nome"
         description: "Descrição"
