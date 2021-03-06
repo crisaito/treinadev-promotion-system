@@ -9,7 +9,9 @@ feature 'Admin view promotions' do
                       description: 'Promoção de Cyber Monday',
                       code: 'CYBER15', discount_rate: 15,
                       expiration_date: '22/12/2033')
+    user = User.create!(email: 'cris@mail.com', password: '123456')
 
+    login_as user
     visit root_path
     click_on 'Promoções'
 
@@ -29,7 +31,9 @@ feature 'Admin view promotions' do
                       description: 'Promoção de Cyber Monday',
                       code: 'CYBER15', discount_rate: 15,
                       expiration_date: '22/12/2033')
+    user = User.create!(email: 'cris@mail.com', password: '123456')
 
+    login_as user
     visit root_path
     click_on 'Promoções'
     click_on 'Cyber Monday'
@@ -43,6 +47,9 @@ feature 'Admin view promotions' do
   end
 
   scenario 'and no promotion are created' do
+    user = User.create!(email: 'cris@mail.com', password: '123456')
+        
+    login_as user
     visit root_path
     click_on 'Promoções'
 
@@ -53,7 +60,9 @@ feature 'Admin view promotions' do
     Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                       code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                       expiration_date: '22/12/2033')
+    user = User.create!(email: 'cris@mail.com', password: '123456')
 
+    login_as user
     visit root_path
     click_on 'Promoções'
     click_on 'Voltar'
@@ -65,7 +74,9 @@ feature 'Admin view promotions' do
     Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                       code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                       expiration_date: '22/12/2033')
+    user = User.create!(email: 'cris@mail.com', password: '123456')
 
+    login_as user
     visit root_path
     click_on 'Promoções'
     click_on 'Natal'

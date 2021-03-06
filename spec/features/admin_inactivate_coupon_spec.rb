@@ -6,7 +6,9 @@ feature 'Admin inactivate coupon' do
                                       code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                                       expiration_date: '22/12/2033')
         coupon = Coupon.create!(code: 'ABC0001', promotion: promotion)
-
+        user = User.create!(email: 'cris@mail.com', password: '123456')
+        
+        login_as user
         visit root_path
         click_on 'Promoções'
         click_on promotion.name
@@ -23,7 +25,9 @@ feature 'Admin inactivate coupon' do
                                       expiration_date: '22/12/2033')
         inactive_coupon = Coupon.create!(code: 'ABC0001', promotion: promotion, status: :inactive)
         active_coupon = Coupon.create!(code: 'ABC0002', promotion: promotion, status: :active)
-
+        user = User.create!(email: 'cris@mail.com', password: '123456')
+        
+        login_as user
         visit root_path
         click_on 'Promoções'
         click_on promotion.name
