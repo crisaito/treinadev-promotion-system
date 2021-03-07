@@ -27,10 +27,10 @@ feature 'Admin registers a valid promotion' do
   end
 
   scenario 'and code must be unique' do
+    user = User.create!(email: 'cris@mail.com', password: '123456')
     Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                       code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
-                      expiration_date: '22/12/2033')
-    user = User.create!(email: 'cris@mail.com', password: '123456')
+                      expiration_date: '22/12/2033', user: user)
 
     login_as user
     visit root_path

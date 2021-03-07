@@ -26,6 +26,7 @@ class PromotionsController < ApplicationController
         #@promotion.discount_rate = params[:promotion][:discount_rate]
         #@promotion.coupon_quantity = params[:promotion][:coupon_quantity]
         #@promotion.expiration_date = params[:promotion][:expiration_date]
+        @promotion.user = current_user
         if @promotion.save
             redirect_to @promotion
         else
