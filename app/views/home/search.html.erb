@@ -1,0 +1,11 @@
+<h1>Resultados da busca</h1>
+
+<ul>
+  <% if @promotions.any? %>
+    <% @promotions.each do |promotion| %>
+      <li><%= promotion.name %>, <%= promotion.description %></li>
+    <% end %>
+  <% else %>
+    <p>Não foram encontrados resultados para a busca</p>
+  <% end %>
+</ul>
