@@ -1,5 +1,7 @@
 <%= flash[:notice] %>
 
+<%= link_to 'Voltar', promotions_path %>
+
 <h1><%= @promotion.name %></h1>
 <dl>
     <dt>Descrição</dt>
@@ -14,9 +16,19 @@
     <dd><%= @promotion.coupon_quantity %></dd>
     <dt>Cadastrada por:</dt>
     <dd><%= @promotion.user.email %></dd>
+    
+    <% if @promotion.approved? %>
+        <dt>Status: </dt> 
+        <dd>Aprovada</dd>
+    <% end %>
 </dl>
 
-<%= link_to 'Voltar', promotions_path %>
+<% unless current_user == @promotion.user %>
+    <%= link_to 'Aprovar Promoção', approve_promotion_path(@promotion), method: :post  %>
+<% end %>
+
+
+
 <%= link_to 'Gerar cupons', generate_coupons_promotion_path(@promotion), method: :post %>
 
 <% @promotion.coupons.each do |coupon| %>
