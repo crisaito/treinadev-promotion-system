@@ -8,4 +8,14 @@
   <% else %>
     <p>Não foram encontrados resultados para a busca</p>
   <% end %>
+
+  
+  <% if @coupons.any? %>
+    <% @coupons.each do |coupon| %>
+      <li> <%=link_to coupon.code, promotion_path(coupon.promotion_id) %> </li>
+    <% end %>
+  <% else %>
+    <p>Não foram encontrados resultados para a busca</p>
+  <% end %>
+  
 </ul>
