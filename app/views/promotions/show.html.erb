@@ -20,16 +20,17 @@
     <% if @promotion.approved? %>
         <dt>Status: </dt> 
         <dd>Aprovada</dd>
+        
+        <% unless @promotion.coupons.any? %>
+            <%= link_to 'Gerar cupons', generate_coupons_promotion_path(@promotion), method: :post %>
+        <% end %>
+        
     <% end %>
 </dl>
 
 <% unless current_user == @promotion.user %>
     <%= link_to 'Aprovar Promoção', approve_promotion_path(@promotion), method: :post  %>
 <% end %>
-
-
-
-<%= link_to 'Gerar cupons', generate_coupons_promotion_path(@promotion), method: :post %>
 
 <% @promotion.coupons.each do |coupon| %>
     <div id="coupon-<%= coupon.id %>">
