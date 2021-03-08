@@ -45,4 +45,35 @@ feature 'Admin registers a promotion' do
     expect(page).to have_content('Cadastrada por: cris@mail.com')
     expect(page).to have_link('Voltar')
   end
+
+  scenario 'and chooses product categories' do
+    ProductCategory.create!(name: 'Mouses' , code: 'MOUSE')
+    ProductCategory.create!(name:'Teclados' , code: 'TECLADO')
+    ProductCategory.create!(name: 'Monitores' , code: 'MONITOR')
+    ProductCategory.create!(name: 'Webcams' , code: 'WEBCAM')
+    user = User.create!(email: 'cris@mail.com', password: '123456')
+        
+    login_as user
+    visit root_path
+    click_on 'Promoções'
+    click_on 'Registrar uma promoção'
+
+    fill_in 'Nome', with: 'Cyber Monday'
+    fill_in 'Descrição', with: 'Promoção de Cyber Monday'
+    fill_in 'Código', with: 'CYBER15'
+    fill_in 'Desconto', with: '15'
+    fill_in 'Quantidade de cupons', with: '90'
+    fill_in 'Data de término', with: '22/12/2033'
+    check 'Mouses'
+    check 'Teclados'
+    check 'Monitores'
+    click_on 'Criar promoção'
+
+    promotion = Promotion.last
+    expect(current_path).to eq(promotion_path(Promotion.last))
+    expect(page).to have_content 'Mouses'
+    expect(page).to have_content 'Teclados'
+    expect(page).to have_content 'Monitores'
+    expect(page).not_to have_content 'Webcams'
+  end
 end
