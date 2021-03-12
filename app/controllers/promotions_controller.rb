@@ -6,11 +6,19 @@ class PromotionsController < ApplicationController
 
     def show
         @promotion = Promotion.find(params[:id])
+        if @promotion.expiration_date < Date.today
+            @promotion.expired!
+            flash[:notice] = 'Esta promoção está expirada'
+            @promotion.coupons.each do |coupon|
+                coupon.inactive!
+            end
+        end
     end
 
     def new
         @promotion = Promotion.new
         @product_categories = ProductCategory.all
+        @payment_methods = PaymentMethods.all
     end
 
     def create

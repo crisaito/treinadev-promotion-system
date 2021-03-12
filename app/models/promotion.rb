@@ -8,6 +8,10 @@ class Promotion < ApplicationRecord
     validates :name, :code, :discount_rate, :coupon_quantity, :expiration_date, presence: true
     validates :code, uniqueness: true
 
+    enum status: { active: 0, inactive: 5, expired: 10 }
+
+    #validate :expiration_date_cannot_be_in_the_past
+
     def generate_coupons!
         Coupon.transaction do
             (1..coupon_quantity).each do |number|
@@ -28,5 +32,12 @@ class Promotion < ApplicationRecord
 
     def approver
         promotion_approval.user
+    end
+
+    private
+    def expiration_date_cannot_be_in_the_past
+        if self.expiration_date < Date.today
+            errors.add(:expiration_date, 'Esta promoção está expirada')
+        end
     end
 end

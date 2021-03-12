@@ -1,4 +1,9 @@
 <%= flash[:notice] %>
+<% if @promotion.errors.any? %>
+    <% @promotion.errors.full_messages.each do |m| %>
+        <%= m %>
+    <% end %>
+<% end %>
 
 <%= link_to 'Voltar', promotions_path %>
 
@@ -24,6 +29,11 @@
         <% unless @promotion.coupons.any? %>
             <%= link_to 'Gerar cupons', generate_coupons_promotion_path(@promotion), method: :post %>
         <% end %>
+    <% end %>
+
+    <% if @promotion.expired? %>
+        <dt>Status: </dt> 
+        <dd>Expirado</dd>
     <% end %>
 </dl>
 
